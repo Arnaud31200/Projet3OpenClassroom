@@ -30,6 +30,46 @@ class level:
         self.Wall = pygame.image.load("ressource/floor-tiles-20x20.png").subsurface(40,0,20,20)
         self.Start = pygame.image.load("ressource/floor-tiles-20x20.png").subsurface(160,20,20,20)
 
+    def from_coord_to_grid(self, posx, posy):
+        i = max(0, int(posx / 20))
+        j = max(0, int(posy / 20))
+        return i, j
+
+    def get_neighbour_blocks(self, level, i_start, j_start):
+        blocks = list()
+        for j in range(j_start, j_start+2):
+            for i in range(i_start, i_start+2):
+                if self.LEVEL[1] == i or j:
+                    topleft = i*20, j*20
+                    blocks.append(pygame.Rect((topleft), (20, 20)))
+        return blocks
+    
+    def compute_penetration(self, block, old_rect, new_rect):
+        dx_correction = dy_correction = 0.0
+        if old_rect.bottom <= block.top < new_rect.bottom:
+            dy_correction = block.top  - new_rect.bottom
+        elif old_rect.top >= block.bottom > new_rect.top:
+            dy_correction = block.bottom - new_rect.top
+        if old_rect.right <= block.left < new_rect.right:
+            dx_correction = block.left - new_rect.right
+        elif old_rect.left >= block.right > new_rect.left:
+            dx_correction = block.right - new_rect.left
+        return dx_correction, dy_correction
+
+    def bloque_sur_collision(self, level, old_posx, old_posy, new_posx, new_posy):
+        old_rectxy = pygame.Rect((old_posx, old_posy), (20, 20))
+        new_rectxy = pygame.Rect((new_posx, new_posy), (20, 20))
+        i, j = self.from_coord_to_grid(new_posx, new_posy)
+        collide_later = list()
+        blocks = self.get_neighbour_blocks(self.LEVEL, i, j)
+        for block in blocks:
+            if not new_rectxy.colliderect(block):
+                continue
+ 
+        dx_correction, dy_correction = self.compute_penetration(block, old_rectxy, new_rectxy)
+        new_rectxy.top += dy_correction
+        new_rectxy.left += dx_correction
+
 class player(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
