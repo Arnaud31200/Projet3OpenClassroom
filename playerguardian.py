@@ -34,11 +34,11 @@ class player(pygame.sprite.Sprite):
             self.rect.y += self.move
 
 class guardian(pygame.sprite.Sprite):
-    def __init__(self, outx, outy):
+    def __init__(self, posx, posy):
         super().__init__()
         self.health = 1
         self.attack = 0
         self.logo = pygame.transform.scale(pygame.image.load("ressource/Gardien.png"),(20, 20))
         self.rect = self.logo.get_rect()
-        self.rect.y = outy
-        self.rect.x = outx
+        self.rect.x = posx
+        self.rect.y = posy
