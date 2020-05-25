@@ -1,32 +1,45 @@
 import pygame
-from game import*
+from spritesgame import*
+from Level import*
 
 pygame.init()
 
+class screen:
+    def __init__(self, width, height):
+        self.title = pygame.display.set_caption("Mac Gayver")
+        self.width = width
+        self.height = height
+        self.screen = pygame.display.set_mode((self.width, self.height))
+        self.sprite = self.width / 15
+        self.outx = self.width - self.sprite
+        self.outy = self.height - self.sprite
+
+class game:
+    def __init__(self):
+        self.SCREEN = screen(300, 300)
+        self.LEVEL = level(Level1, self.SCREEN.sprite, self.SCREEN)
+        self.PLAYER = player(self.LEVEL, self.SCREEN.sprite)
+        self.GUARDIAN = guardian(self.LEVEL)
+        self.AIGUILLE = items(self.LEVEL, "ressource/aiguille.png")
+        self.ETHER = items(self.LEVEL, "ressource/ether.png")
+        self.SERINGUE = items(self.LEVEL, "ressource/seringue.png")
+        self.TUBE = items(self.LEVEL, "ressource/tube_plastique.png")
+
 GAME = game()
+GAME.LEVEL.draw()
+GAME.SCREEN.screen.blit(GAME.PLAYER.logo, GAME.PLAYER.rect)
+GAME.SCREEN.screen.blit(GAME.GUARDIAN.logo, GAME.GUARDIAN.rect)
+GAME.SCREEN.screen.blit(GAME.AIGUILLE.logo, GAME.AIGUILLE.rect)
+GAME.SCREEN.screen.blit(GAME.ETHER.logo, GAME.ETHER.rect)
+GAME.SCREEN.screen.blit(GAME.SERINGUE.logo, GAME.SERINGUE.rect)
+GAME.SCREEN.screen.blit(GAME.TUBE.logo, GAME.TUBE.rect)
+
 RUNNING = True
 
 while RUNNING:
-    num_ligne = 0
-    for ligne in GAME.LEVEL.LEVEL:
-        num_case = 0
-        for number in ligne:
-            a = num_case * GAME.SCREEN.sprite
-            b = num_ligne * GAME.SCREEN.sprite
-            if number == 1:
-                GAME.SCREEN.screen.blit(GAME.LEVEL.Wall, (a,b))
-            elif number == 0 or number == 5 or number == 6 or number == 7 or number == 8:
-                GAME.SCREEN.screen.blit(GAME.LEVEL.Floor, (a,b))
-            elif number == 3 or number == 4:
-                GAME.SCREEN.screen.blit(GAME.LEVEL.Start, (a,b))
-            num_case += 1
-        num_ligne += 1
-    
-    GAME.SCREEN.screen.blit(GAME.PLAYER.logo, GAME.PLAYER.rect)
-    GAME.SCREEN.screen.blit(GAME.GUARDIAN.logo, GAME.GUARDIAN.rect)
 
-    pygame.display.flip()    
- 
+    pygame.display.flip()
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             RUNNING = False
@@ -40,4 +53,7 @@ while RUNNING:
                 GAME.PLAYER.move_left()
             elif event.key == pygame.K_RIGHT and GAME.PLAYER.rect.x < GAME.SCREEN.outx:
                 GAME.PLAYER.move_right()
+            elif event.key == pygame.K_ESCAPE:
+                RUNNING = False
+                pygame.quit()
            
