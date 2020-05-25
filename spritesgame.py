@@ -14,9 +14,7 @@ class player(pygame.sprite.Sprite):
         self.rect.y = y
 
     def draw_move(self):
-        log_x, log_y = self.level.from_coord_to_grid(self.rect.x, self.rect.y)
-        if self.level.LEVEL[log_y][log_x + 1] == 0 :
-            self.level.Floor
+        pass
 
     def move_right(self):
         log_x, log_y = self.level.from_coord_to_grid(self.rect.x, self.rect.y)
