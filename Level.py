@@ -1,6 +1,16 @@
 import pygame
 from random import*
 
+class screen:
+    def __init__(self, width, height):
+        self.title = pygame.display.set_caption("Mac Gayver")
+        self.width = width
+        self.height = height
+        self.screen = pygame.display.set_mode((self.width, self.height))
+        self.sprite = self.width / 15
+        self.outx = self.width - self.sprite
+        self.outy = self.height - self.sprite
+
 class level:
     def __init__(self, level, sprite, screen):
         self.screen = screen
@@ -8,9 +18,9 @@ class level:
         self.POSITION_ITEMS = []
         self.COORDONNEES = []
         self.sprite = sprite
-        self.Floor = pygame.image.load("ressource/floor-tiles-20x20.png").subsurface(0,160,20,20)
-        self.Wall = pygame.image.load("ressource/floor-tiles-20x20.png").subsurface(40,0,20,20)
-        self.Start = pygame.image.load("ressource/floor-tiles-20x20.png").subsurface(160,20,20,20)
+        self.Floor = pygame.transform.scale(pygame.image.load("ressource/floor-tiles-20x20.png").subsurface(0,160,20,20), (20, 20))
+        self.Wall = pygame.transform.scale(pygame.image.load("ressource/floor-tiles-20x20.png").subsurface(40,0,20,20), (20, 20))
+        self.Start = pygame.transform.scale(pygame.image.load("ressource/floor-tiles-20x20.png").subsurface(160,20,20,20), (20, 20))
 
     def pos_player(self):
         for list in self.LEVEL:
