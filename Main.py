@@ -9,50 +9,50 @@ from Game_structure import Game
 
 pygame.init()
 
-"""Game initialization"""
-GAME = Game()
-GAME.LEVEL.draw()
-GAME.SCREEN.screen.blit(GAME.PLAYER.logo, GAME.PLAYER.rect)
-GAME.SCREEN.screen.blit(GAME.GUARDIAN.logo, GAME.GUARDIAN.rect)
-GAME.SCREEN.screen.blit(GAME.NEEDLE.logo, GAME.NEEDLE.rect)
-GAME.SCREEN.screen.blit(GAME.ETHER.logo, GAME.ETHER.rect)
-GAME.SCREEN.screen.blit(GAME.SYRINGUE.logo, GAME.SYRINGUE.rect)
-GAME.SCREEN.screen.blit(GAME.PIPE.logo, GAME.PIPE.rect)
+"""game initialization"""
+game = Game()
+game.level.draw()
+game.screen.screen.blit(game.player.logo, game.player.rect)
+game.screen.screen.blit(game.guardian.logo, game.guardian.rect)
+game.screen.screen.blit(game.needle.logo, game.needle.rect)
+game.screen.screen.blit(game.ether.logo, game.ether.rect)
+game.screen.screen.blit(game.syringue.logo, game.syringue.rect)
+game.screen.screen.blit(game.pipe.logo, game.pipe.rect)
 
 RUNNING = True
 
-"""Game loop"""
+"""game loop"""
 while RUNNING:
     pygame.display.flip()
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             RUNNING = False
             pygame.quit()
-        elif GAME.PLAYER.health <= 0:
+        elif game.player.health <= 0:
             RUNNING = False
             pygame.quit()
             print("You loose !" "End of the game.")
-        elif GAME.GUARDIAN.health <= 0:
+        elif game.guardian.health <= 0:
             RUNNING = False
             pygame.quit()
             print("You win !", "End of the game.")
         elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_DOWN and GAME.PLAYER.rect.y < GAME.SCREEN.outy:
-                GAME.PLAYER.move_down()
-                GAME.collect_items()
-                GAME.guardian_collide()
-            elif event.key == pygame.K_UP and GAME.PLAYER.rect.y > 0:
-                GAME.PLAYER.move_up()
-                GAME.collect_items()
-                GAME.guardian_collide()
-            elif event.key == pygame.K_LEFT and GAME.PLAYER.rect.x > 0:
-                GAME.PLAYER.move_left()
-                GAME.collect_items()
-                GAME.guardian_collide()
-            elif event.key == pygame.K_RIGHT and GAME.PLAYER.rect.x < GAME.SCREEN.outx:
-                GAME.PLAYER.move_right()
-                GAME.collect_items()
-                GAME.guardian_collide()
+            if event.key == pygame.K_DOWN and game.player.rect.y < Screen.outy:
+                game.player.move_down()
+                game.collect_items()
+                game.guardian_collide()
+            elif event.key == pygame.K_UP and game.player.rect.y > 0:
+                game.player.move_up()
+                game.collect_items()
+                game.guardian_collide()
+            elif event.key == pygame.K_LEFT and game.player.rect.x > 0:
+                game.player.move_left()
+                game.collect_items()
+                game.guardian_collide()
+            elif event.key == pygame.K_RIGHT and game.player.rect.x < Screen.outx:
+                game.player.move_right()
+                game.collect_items()
+                game.guardian_collide()
             elif event.key == pygame.K_ESCAPE:
                 RUNNING = False
                 pygame.quit()

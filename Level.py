@@ -18,7 +18,7 @@ class Level:
         self.level = level
         self.items_position = []
         self.coordinates = []
-        self.sprite = sprite
+        self.sprite = 20
         self.floor = pygame.image.load("ressource/floor-tiles-20x20.png").subsurface(180, 240, 20, 20)
         self.wall = pygame.image.load("ressource/floor-tiles-20x20.png").subsurface(40, 140, 20, 20)
 
