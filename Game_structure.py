@@ -4,7 +4,6 @@ from Sprites import Player
 from Sprites import Items
 from Sprites import Guardian
 from Level import Level
-from Level import Level1
 
 class Screen:
     """Screen config"""
@@ -21,7 +20,7 @@ class Game:
     """Game config"""
     def __init__(self):
         self.screen = Screen(300, 300, 20)
-        self.level = Level(Level1, self.screen.sprite, self.screen)
+        self.level = Level(self.screen.sprite, self.screen)
         self.level.items_cord()
         self.guardian = Guardian(self.level)
         self.player = Player(self.level, self.screen.sprite, self.screen, self.guardian)

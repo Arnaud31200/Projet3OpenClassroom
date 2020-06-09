@@ -1,26 +1,26 @@
 """Import Modules"""
-import pygame
 from random import choice
-
-Level1 = []
-with open("level1.txt", "r") as f:
-    for line in f.readlines():
-        linenumber = []
-        for number in line :
-            if number != "\n":
-                linenumber.append(int(number.strip()))
-        Level1.append(linenumber)
+import pygame
 
 class Level:
     """Level config"""
-    def __init__(self, level, sprite, screen):
-        self.screen = screen
-        self.level = level
+    def __init__(self, sprite, screen):
+        self.level = []
         self.items_position = []
         self.coordinates = []
-        self.sprite = 20
-        self.floor = pygame.image.load("ressource/floor-tiles-20x20.png").subsurface(180, 240, 20, 20)
-        self.wall = pygame.image.load("ressource/floor-tiles-20x20.png").subsurface(40, 140, 20, 20)
+        with open("level1.txt", "r") as level_selected:
+            for line in level_selected.readlines():
+                linenumber = []
+                for number in line:
+                    if number != "\n":
+                        linenumber.append(int(number.strip()))
+                self.level.append(linenumber)
+        self.screen = screen
+        self.sprite = sprite
+        self.floor = pygame.image.load(
+            "ressource/floor-tiles-20x20.png").subsurface(180, 240, 20, 20)
+        self.wall = pygame.image.load(
+            "ressource/floor-tiles-20x20.png").subsurface(40, 140, 20, 20)
 
     def pos_player(self):
         """Set player position"""
@@ -46,32 +46,33 @@ class Level:
         for line in self.level:
             grid_number = 0
             for number in line:
-                X = grid_number * self.screen.sprite
-                Y = line_number * self.screen.sprite
+                posx = grid_number * self.screen.sprite
+                posy = line_number * self.screen.sprite
                 if number == 1:
-                    self.screen.screen.blit(self.wall, (X, Y))
-                elif number == 0 or number == 3 or number == 4:
-                    self.screen.screen.blit(self.floor, (X, Y))
+                    self.screen.screen.blit(self.wall, (posx, posy))
+                elif number in (0, 3, 4):
+                    self.screen.screen.blit(self.floor, (posx, posy))
                 grid_number += 1
             line_number += 1
 
-    """Set cordinates for next grid"""
-    def from_cord_to_grid(self, posx, posy):
-        X = max(0, int(posx / self.sprite))
-        Y = max(0, int(posy / self.sprite))
-        return X, Y
+    def from_cord_to_grid(self, absciss, ordinate):
+        """Set cordinates for next grid"""
+        posx = max(0, int(absciss / self.sprite))
+        posy = max(0, int(ordinate / self.sprite))
+        return posx, posy
 
-    """Set items cordinates"""
     def items_cord(self):
+        """Set items cordinates"""
         for index_y, ordinates in enumerate(self.level):
             for index_x, number in enumerate(ordinates):
                 if number == 0:
                     self.items_position.append((index_x * self.sprite, index_y * self.sprite))
-        
+
     def random_cord(self):
+        """ Set Random cordinates for items"""
         random_coord = choice(self.items_position)
-        X = random_coord[0]
-        Y = random_coord[1]
-        self.coordinates.append((X, Y))
+        posx = random_coord[0]
+        posy = random_coord[1]
+        self.coordinates.append((posx, posy))
         self.items_position.remove(random_coord)
-        return X, Y
+        return posx, posy
