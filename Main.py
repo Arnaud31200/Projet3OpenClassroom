@@ -37,7 +37,7 @@ while RUNNING:
             pygame.quit()
             print("You win !", "End of the game.")
         elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_DOWN and game.player.rect.y < Screen.outy:
+            if event.key == pygame.K_DOWN and game.player.rect.y < game.screen.outy:
                 game.player.move_down()
                 game.collect_items()
                 game.guardian_collide()
@@ -49,7 +49,7 @@ while RUNNING:
                 game.player.move_left()
                 game.collect_items()
                 game.guardian_collide()
-            elif event.key == pygame.K_RIGHT and game.player.rect.x < Screen.outx:
+            elif event.key == pygame.K_RIGHT and game.player.rect.x < game.screen.outx:
                 game.player.move_right()
                 game.collect_items()
                 game.guardian_collide()

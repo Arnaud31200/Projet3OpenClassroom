@@ -25,7 +25,7 @@ class Player(pygame.sprite.Sprite):
         self.move = move
         self.logo = pygame.transform.scale(pygame.image.load("ressource/MacGyver.png"), (20, 20))
         self.rect = self.logo.get_rect()
-        posx, posy = self.level.pos_player()
+        posx, posy = self.level.player_cord()
         self.rect.x = posx
         self.rect.y = posy
 
@@ -74,6 +74,6 @@ class Guardian(pygame.sprite.Sprite):
         self.attack = 4
         self.logo = pygame.transform.scale(pygame.image.load("ressource/Gardien.png"), (20, 20))
         self.rect = self.logo.get_rect()
-        posx, posy = self.level.pos_guardian()
+        posx, posy = self.level.guardian_cord()
         self.rect.x = posx
         self.rect.y = posy

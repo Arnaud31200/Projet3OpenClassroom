@@ -43,6 +43,6 @@ class Game:
     def guardian_collide(self):
         """Set player behavior against guardian"""
         log_x, log_y = self.level.from_cord_to_grid(self.player.rect.x, self.player.rect.y)
-        if self.level.level[log_y][log_x] == 4:
+        if self.level.level[log_y][log_x] == 3:
             self.player.health = self.player.health - self.guardian.attack
             self.guardian.health = self.guardian.health - self.player.attack
