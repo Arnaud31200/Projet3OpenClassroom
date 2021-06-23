@@ -4,9 +4,8 @@ from Level import Level
 
 class Items(pygame.sprite.Sprite):
     """Items config"""
-    def __init__(self, level, logo, player):
+    def __init__(self, level, logo):
         super().__init__()
-        self.player = player
         self.level = level
         self.logo = pygame.transform.scale(pygame.image.load(logo), (20, 20))
         self.rect = self.logo.get_rect()

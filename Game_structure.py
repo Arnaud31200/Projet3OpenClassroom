@@ -24,10 +24,10 @@ class Game:
         self.level.items_cord()
         self.guardian = Guardian(self.level)
         self.player = Player(self.level, self.screen.sprite, self.screen, self.guardian)
-        self.needle = Items(self.level, "ressource/aiguille.png", self.player)
-        self.ether = Items(self.level, "ressource/ether.png", self.player)
-        self.syringue = Items(self.level, "ressource/seringue.png", self.player)
-        self.pipe = Items(self.level, "ressource/tube_plastique.png", self.player)
+        self.needle = Items(self.level, "ressource/aiguille.png")
+        self.ether = Items(self.level, "ressource/ether.png")
+        self.syringue = Items(self.level, "ressource/seringue.png")
+        self.pipe = Items(self.level, "ressource/tube_plastique.png")
 
     def collect_items(self):
         """Set items collection by player"""
